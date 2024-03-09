@@ -1,13 +1,19 @@
 .Leaderboard{
-  width: 40vw;
-  height: 80vh;
+  margin: 0 auto;
+  width: 80vw;
+  height: 50vh;
   background-color: white;
   border-radius: 15px;
-  position: absolute;
   right: 10vh;
   top: 10vh;
   padding: 1.5em;
   text-align: center;
+  border:2px solid black;
+  box-shadow: 10px 10px 0px rgb(136, 131, 131);
+}
+
+.wrapper{
+  width: 100vw;
 }
 
 .Heads{
@@ -16,4 +22,80 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+#middle{
+  margin: 3em 0 2em 0;
+}
+
+.InfoContainer{
+  text-align: center;
+  width: 50%;
+  font-size: 1.3em;
+}
+
+.nav{
+  position: relative;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.Single{
+  width: 30vw;
+  right: 50%;
+  top: 0%;
+}
+
+.Single img{
+  width: 100%;
+}
+
+.Logo{
+  position: absolute;
+  top: 20%;
+  left: 1%;
+  width: 10em;
+}
+
+.Logo img{
+  width: 100%;
+  height: 100%;
+}
+
+.Search{
+  width: 30%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Search input{
+  font-size: 1.2em;
+  padding: 0.5em;
+  margin: 0 0.5em 0 2em;
+  border-radius: 25px;
+}
+
+.Search button{
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+  box-shadow: 2px 2px 0px rgb(136, 131, 131);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.Search button:hover{
+  transform: translate(-5%,-5%);
+  box-shadow: 5px 5px 0px rgb(136, 131, 131);
+}
+
+.container{
+  height: 85%;
+  overflow: scroll;
+  overflow-x: hidden;
 }

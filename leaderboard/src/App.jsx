@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import axios from "axios"
-import { FaSearch } from "react-icons/fa";
 
 function extractTimeFromUTC(utcString) {
   const utcDate = new Date(utcString);
@@ -112,7 +111,7 @@ function App() {
             placeholder='Enter your github ID'
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button onClick={handleSearch}>S</button>
+          <button onClick={handleSearch}>search</button>
         </div>
       </div>
     <div className='wrapper'>

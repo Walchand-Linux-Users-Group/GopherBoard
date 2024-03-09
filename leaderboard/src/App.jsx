@@ -112,7 +112,7 @@ function App() {
             placeholder='Enter your github ID'
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button onClick={handleSearch}><FaSearch /></button>
+          <button onClick={handleSearch}>S</button>
         </div>
       </div>
     <div className='wrapper'>

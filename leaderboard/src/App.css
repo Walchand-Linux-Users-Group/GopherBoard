@@ -81,9 +81,9 @@
 }
 
 .Search button{
-  border-radius: 50%;
+  border-radius: 15px;
   height: 3em;
-  width: 3em;
+  width: 5em;
   box-shadow: 2px 2px 0px rgb(136, 131, 131);
   cursor: pointer;
   transition: 0.2s;
@@ -98,4 +98,27 @@
   height: 85%;
   overflow: scroll;
   overflow-x: hidden;
+}
+
+.clearSearch{
+  margin: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clearSearch button{
+  border-radius: 15px;
+  height: 3em;
+  /* width: 5em; */
+  box-shadow: 2px 2px 0px rgb(136, 131, 131);
+  cursor: pointer;
+  background-color: rgb(255 174 174);
+  transition: 0.2s;
+  font-weight: bold;
+}
+
+.clearSearch button:hover{
+  transform: translate(-5%,-5%);
+  box-shadow: 5px 5px 0px rgb(136, 131, 131);
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import axios from "axios"
 
@@ -35,9 +35,9 @@ function addLeadingZero(number) {
 }
 
 
-
 function App() {
   const [currentData, setCurrentData] = useState([]);
+  const [searchedUserData,setUserData]=useState([])
   const [searchInput, setSearchInput] = useState('');
 
 
@@ -65,7 +65,12 @@ function App() {
           return pointsComparison;
         });
 
-        setCurrentData(sortedArray.slice(0, 10)); // Show only the top 10 items
+        const rankedArray = sortedArray.map((user, index) => ({
+          ...user,
+          rank: index + 1,
+        }));
+
+        setCurrentData(rankedArray); // Show only the top 10 items
         console.log("got it");
       })
       .catch(error => {
@@ -74,21 +79,26 @@ function App() {
       });
   };
 
-
-  // Set up an interval to call the function every 30 seconds
-  const fetchDataInterval = setInterval(() => {
-    fetchData();
-  }, 30000);
-
   const handleSearch = () => {
     // Filter the leaderboard based on the search input
     const filteredData = currentData.filter(item => item.github_username.includes(searchInput));
 
     // Update the state with the filtered data
-    setCurrentData(filteredData);
+    setUserData(filteredData);
   };
 
   useEffect(() => {
+    const fetchDataInterval = setInterval(() => {
+      fetchData();
+    }, 30000);
+
+    // Cleanup function to clear the interval when the component is unmounted
+    return () => {
+      clearInterval(fetchDataInterval);
+    };
+  }, []);
+
+   useEffect(() => {
     fetchData();
   }, []);
 
@@ -100,7 +110,7 @@ function App() {
       </div>
       <div className='Single'>
         <img src='https://res.cloudinary.com/dcglxmssd/image/upload/v1710006581/Group_6_2_icsj5b.png' alt='gopherboard'/> 
-      </div>
+      </div>  
     </div>
     <div id='middle' className='wrapper'>
         <div className='Search'>
@@ -111,8 +121,13 @@ function App() {
             placeholder='Enter your github ID'
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button onClick={handleSearch}>search</button>
+          <button onClick={handleSearch}>Search</button>
         </div>
+        {searchedUserData[0]!=undefined?<div className='clearSearch'>
+          <button onClick={()=>{
+            setUserData([]);
+          }}>clear search result</button>
+        </div>:""}
       </div>
     <div className='wrapper'>
       <div className='Leaderboard'>
@@ -132,10 +147,10 @@ function App() {
         </div>
         <div className='container'>    
         {currentData[0]==undefined?"Data Not Found!":""}      
-          {currentData.map((item, idx) => (
-            <div className='Heads' key={idx}>
+          {searchedUserData[0]==undefined?currentData.map((item) => (
+            <div className='Heads' key={item.rank}>
                <div className='InfoContainer'>
-                  <ph3>{idx + 1}</ph3>
+                  <p>{item.rank}</p>
                 </div>
                <div className='InfoContainer'>
                   <p>{item.github_username}</p>
@@ -147,7 +162,23 @@ function App() {
                   <p>{extractTimeFromUTC(item.submission_timestamp)}</p>
                 </div>
             </div>
-          ))}
+          )):""}
+          {searchedUserData[0]!=undefined?searchedUserData.map((item) => (
+            <div className='Heads' key={item.rank}>
+               <div className='InfoContainer'>
+                  <ph3>{item.rank}</ph3>
+                </div>
+               <div className='InfoContainer'>
+                  <p>{item.github_username}</p>
+                </div>
+               <div className='InfoContainer'>
+                  <p>🪙 {item.points_awarded} </p>
+                </div>
+               <div className='InfoContainer'>
+                  <p>{extractTimeFromUTC(item.submission_timestamp)}</p>
+                </div>
+            </div>
+          )):""}
         </div>
       </div>
       </div>
